@@ -29,15 +29,22 @@ function type(this: HttpResponse, contentType: string): HttpResponse {
 function send(this: HttpResponse, body?: unknown) {
   if (body === undefined || body === null || this.getHeader('Content-Type')) {
     this.end(body)
-  } else if (typeof body === 'string') {
+    return
+  }
+
+  const bodyType = typeof body
+
+  if (bodyType === 'object') {
+    if (Buffer.isBuffer(body)) {
+      this.setHeader('Content-Type', 'application/octet-stream')
+      this.end(body)
+    } else {
+      this.setHeader('Content-Type', 'application/json; charset=utf-8')
+      this.end(JSON.stringify(body))
+    }
+  } else if (bodyType === 'string') {
     this.setHeader('Content-Type', 'text/plain; charset=utf-8')
     this.end(body)
-  } else if (Buffer.isBuffer(body)) {
-    this.setHeader('Content-Type', 'application/octet-stream')
-    this.end(body)
-  } else if (typeof body === 'object') {
-    this.setHeader('Content-Type', 'application/json; charset=utf-8')
-    this.end(JSON.stringify(body))
   } else {
     this.setHeader('Content-Type', 'text/plain; charset=utf-8')
     this.end(String(body))

@@ -1,0 +1,45 @@
+{
+  "name": "@bwcroft/octane-ui",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A minimal, lightweight CSS library for building clean and responsive user interfaces.",
+  "license": "MIT",
+  "author": "Brenden Croft",
+  "homepage": "https://github.com/bwcroft/nodejs-toolkit/tree/main/packages/octane-ui#readme",
+  "bugs": {
+    "url": "https://github.com/bwcroft/nodejs-toolkit/issues"
+  },
+  "keywords": [
+    "octane-ui",
+    "octane",
+    "css",
+    "scss",
+    "sass",
+    "style",
+    "library",
+    "framework",
+    "ui",
+    "design-system",
+    "frontend",
+    "responsive",
+    "minimal",
+    "lightweight",
+    "utility",
+    "modern",
+    "web",
+    "frontend-framework",
+    "css-framework",
+    "bare-bones"
+  ],
+  "scripts": {
+    "build": "sass src/scss/main.scss dist/styles.css",
+    "build:watch": "pnpm run build --watch"
+  },
+  "devDependencies": {
+    "sass": "^1.93.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.13.1"
+}
