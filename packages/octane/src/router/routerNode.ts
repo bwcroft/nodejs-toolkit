@@ -26,6 +26,10 @@ export class RouterNode {
     this.handlers = src?.handlers || new Map()
   }
 
+  get isSplat(): boolean {
+    return this.paramName === '*'
+  }
+
   getHandlers(method: RouteMethod): (RouteMiddleware | RouteHandler)[] | undefined {
     let handlers = this.handlers.get(method)
     if (!handlers && method === 'HEAD') {
@@ -35,29 +39,13 @@ export class RouterNode {
   }
 
   getOptions(): RouteMethod[] {
-    const result: RouteMethod[] = []
-    let hasGet = false
-    let hasHead = false
-    let hasOptions = false
-
-    for (const k of this.handlers.keys()) {
-      result.push(k)
-      if (k === 'GET') hasGet = true
-      if (k === 'HEAD') hasHead = true
-      if (k === 'OPTIONS') hasOptions = true
+    const results: RouteMethod[] = [...this.handlers.keys()]
+    if (this.handlers.has('GET') && !this.handlers.has('HEAD')) {
+      results.push('HEAD')
     }
-
-    if (hasGet && !hasHead) {
-      result.push('HEAD')
+    if (!this.handlers.has('OPTIONS')) {
+      results.push('OPTIONS')
     }
-    if (!hasOptions) {
-      result.push('OPTIONS')
-    }
-
-    return result
-  }
-
-  get isSplat(): boolean {
-    return this.paramName === '*'
+    return results
   }
 }
