@@ -16,9 +16,11 @@
     "test": "vitest --run",
     "test:watch": "vitest",
     "build": "tsc --build",
-    "server": "pnpm run build && node ./server/dist/server.js",
+    "build:clean": "tsc --build --clean && tsc --build",
+    "server": "pnpm build && pnpm --filter server start",
+    "server:clean": "pnpm build:clean && pnpm --filter server start",
     "preinstall": "npx only-allow pnpm",
-    "prepublishOnly": "pnpm run lint && pnpm run test && pnpm run build"
+    "prepublishOnly": "pnpm lint && pnpm test && pnpm build"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",

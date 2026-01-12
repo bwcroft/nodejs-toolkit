@@ -1,4 +1,5 @@
 import http from 'http'
+import { parseUrl, SearchParams } from '../utils/url.js'
 import { RouterNode } from './routerNode.js'
 import { toHttpRequest, HttpRequest } from '../decorators/requestDecorators.js'
 import { toHttpResponse, HttpResponse } from '../decorators/resultDecorators.js'
@@ -34,7 +35,7 @@ export type RouteParmas = Record<string, string>
 export type RouteContext<P extends string = string, T extends object = object> = {
   path: string
   params: { [K in P]?: string }
-  searchParams: URLSearchParams
+  searchParams: SearchParams
 } & Partial<T>
 
 type RegisterRoute = (path: string, handler: RouteHandler, config?: RouteConfig) => void
@@ -120,10 +121,6 @@ export class Router {
         }
       }
 
-      if (node?.isSplat) {
-        console.log('NODE: ', node)
-      }
-
       if (!node || !node.handlers.size) {
         return null
       }
@@ -161,7 +158,7 @@ export class Router {
   }
 
   createServer() {
-    return http.createServer(async (rq, rs) => {
+    return http.createServer((rq, rs) => {
       const method = rq.method as RouteMethod
       const req = toHttpRequest(rq)
       const res = toHttpResponse(rs, method === 'HEAD')
@@ -172,19 +169,20 @@ export class Router {
           return
         }
 
-        const { pathname, searchParams } = new URL(req.url, `http://${req.headers.host}`)
+        const { pathname, searchParams } = parseUrl(req.url)
         const { node, params } = this.match(pathname) || {}
         const hasHandlers = !!node?.handlers.size
         const handlers = node?.getHandlers(method)
 
         if (node && handlers) {
-          const ctx = {
+          const ctx: RouteContext = {
             path: pathname,
             params: params || {},
             searchParams,
           }
-          await req.parseBody()
-          await this.execute(req, res, ctx, handlers)
+          req.parseBody().then(() => {
+            this.execute(req, res, ctx, handlers)
+          })
         } else if (method === 'OPTIONS' && hasHandlers) {
           res.options(node.getOptions())
         } else if (node?.handlers?.size) {

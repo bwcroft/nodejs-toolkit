@@ -1,14 +1,37 @@
 {
   "name": "@bwcroft/octane",
+  "description": "A fast, modern Node.js web framework — a lightweight alternative to Express and Fastify.",
   "version": "0.2.0",
-  "homepage": "https://github.com/bwcroft/octane#readme",
+  "homepage": "https://github.com/bwcroft/nodejs-toolkit/tree/main/packages/octane#readme",
   "bugs": {
-    "url": "https://github.com/bwcroft/octane/issues"
+    "url": "https://github.com/bwcroft/nodejs-toolkit/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bwcroft/octane.git"
+    "url": "git+https://github.com/bwcroft/nodejs-toolkit.git"
   },
+  "keywords": [
+    "octane",
+    "nodejs",
+    "node",
+    "framework",
+    "web-framework",
+    "http",
+    "server",
+    "api",
+    "rest",
+    "express",
+    "expressjs",
+    "fastify",
+    "koa",
+    "alternative",
+    "backend",
+    "middleware",
+    "router",
+    "typescript",
+    "performance",
+    "lightweight"
+  ],
   "license": "MIT",
   "author": "Brenden Croft",
   "type": "module",
@@ -29,5 +52,6 @@
   },
   "engines": {
     "node": ">=20"
-  }
+  },
+  "packageManager": "pnpm@10.13.1"
 }

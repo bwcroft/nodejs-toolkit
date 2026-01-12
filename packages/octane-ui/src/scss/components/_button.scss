@@ -1,0 +1,56 @@
+.ou-btn {
+  position: relative; /* Needed for ripple */
+  overflow: hidden;   /* Clip the ripple inside the button */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Ripple effect */
+.ou-btn::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s, opacity 0.8s;
+}
+
+.ou-btn:active::after {
+  transform: scale(3);
+  opacity: 1;
+  transition: 0s;
+}
+
+/* Variants */
+.ou-btn--primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.ou-btn--secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+/* Sizes */
+.ou-btn--sm { font-size: 0.875rem; padding: 4px 12px; }
+.ou-btn--md { font-size: 1rem; padding: 8px 16px; }
+.ou-btn--lg { font-size: 1.25rem; padding: 12px 24px; }
+
+/* Icon inside button */
+.ou-btn__icon { margin-right: 8px; display: inline-flex; align-items: center; }

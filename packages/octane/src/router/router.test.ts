@@ -36,7 +36,7 @@ const rootMiddlware: RouteMiddleware<string, RootMiddlwareCtx> = (req, res, ctx,
 
 type AuthMiddlewareCtx = { authorized: boolean }
 const authMiddleware: RouteMiddleware<string, AuthMiddlewareCtx> = (req, res, ctx, next) => {
-  if (ctx.searchParams.get('trustme') !== 'true') {
+  if (ctx.searchParams.trustme !== 'true') {
     res.unauthorized()
   } else {
     ctx.authorized = true
