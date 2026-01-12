@@ -1,7 +1,7 @@
 {
   "name": "@bwcroft/octane",
   "description": "A fast, modern Node.js web framework — a lightweight alternative to Express and Fastify.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/bwcroft/nodejs-toolkit/tree/main/packages/octane#readme",
   "bugs": {
     "url": "https://github.com/bwcroft/nodejs-toolkit/issues"
