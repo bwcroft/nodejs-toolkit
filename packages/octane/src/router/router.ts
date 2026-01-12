@@ -121,10 +121,6 @@ export class Router {
         }
       }
 
-      if (node?.isSplat) {
-        console.log('NODE: ', node)
-      }
-
       if (!node || !node.handlers.size) {
         return null
       }
